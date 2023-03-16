@@ -88,4 +88,85 @@ c2 = pd.read_csv('product2.csv',names=cols)
 #print(c2)
 
 #DataFrame From Excel (pd.read_excel('ตำแหน่งไฟล์','ชื่อ sheet'))
-dataupdate = pd.re
+dataupdate = pd.read_excel('dataupdate.xlsx','weather',index_col='Day')
+#print(dataupdate)
+
+#Examine DataFrame
+#print(dataupdate.head()) # 5แถวแรก 
+#print(dataupdate.head(n)) อ่าน n แถวแรก 
+#print(dataupdate.tail(10)) #อ่าน 10 สุดท้าย 
+#print(dataupdate.sample(7)) #สุ่มข้อมูล 7 แถว 
+#print(dataupdate.describe()) #count,mean,std,min,25%,50%,75%,max
+#print(dataupdate.shape) #row 30,col 3 
+#print(dataupdate.columns) #column
+#print(dataupdate.values) #values
+
+#Choose column and range of data 
+#print(dataupdate.WindSpeed[1:3]) #printข้อมูลdataupdate หัวข้อ windSpeed ตั้งเเต่ 1-2
+#print(dataupdate[['Day','Event'][1:10]])#printข้อมูลหัวข้อ day,event ตั้งเเต่ 1-9 
+#print(dataupdate[2:12]) #printตั้งเเต่ 2-11 
+#print(dataupdate[0:3].Event) #print 0-2 just event
+#print(dataupdate.loc['2020-12-03':'2020-12-15']['Event']) #print event ตั้งเเต่วันที่ 3 - 15 ธันวา
+
+#Find Data
+#print(dataupdate[dataupdate.Event.str.match('แดดร้อน')]) #เช้ควันที่มีแดดร้อน 
+#print(dataupdate[dataupdate.Event.str.contains('น')]) #เช้ควันที่มี event ตัว น
+
+#Loop For 
+#for idx , row in dataupdate.iterrows():
+    #print("{} Temperature : {} ส่งผลให้เกิด {}".format(idx,row.Temperature,row.Event))
+
+#Condition Choose
+#print(dataupdate[dataupdate.Temperature<=20]) print วันที่อุณหภูมิ <= 20
+#print(dataupdate[dataupdate.Event=='แดดร้อน']) print วันที่แดดร้อน 
+#print(dataupdate.loc[(dataupdate.Event=='ฝนตก') & (dataupdate.Temperature <=25)]) print วันที่ฝนตกและอุณหภูมิ <= 25 
+
+#Isin Function 
+#print(dataupdate.loc[(dataupdate.Temperature == 18) | (dataupdate.Temperature == 20) | (dataupdate.Temperature == 25)])
+# กรองให้เลือก temp = 18,20,35
+#print(dataupdate.loc[dataupdate.Temperature.isin([18,20,25])]) ลดรูปจากด้านบน
+
+#Sort Index
+stock = pd.read_excel('Stock.xlsx','แผ่น1',index_col='Name')
+sort1 = stock.sort_index() #เรียงตามพยัญชนะ
+sort2 = stock.sort_index(ascending=False) #False -> เรียงสระไปพยัญชนะ ไทยไปอังกฤษ True -> เรียงพยัญชนะไปสระ อังกฤษไปไทย 
+#print(sort2)
+
+#Sort by value 
+stock.sort_values('Amount',ascending=True,inplace=True)
+#ascending True -> less to more False -> more to less 
+#inplace แทนค่าทับ 
+
+#Add Column 
+stock["delivery"]=100
+stock["total"] = stock["Price"]+stock["delivery"]
+#print(stock)
+
+#Change Column Name 
+cols={'WindSpeed':'แรงลม'}
+dataupdate.rename(columns=cols,inplace=True)
+#print(dataupdate)
+cols={'แรงลม':'WindSpeed'}
+dataupdate.rename(columns=cols,inplace=True)
+#print(dataupdate)
+
+#Delete Column 
+#Delete and don't effect to DataFrame 
+dataupdate.drop('Temperature',axis=1,inplace=True)
+#Delete and effect to DataFrame 
+#dataupdate.drop('WindSpeed',axis=1,inplace=True)    axis =1(by columns) axis =0(by rows)
+#print(dataupdate)
+
+#Add Rows 
+products = [['หูฟัง',1500,'อุปกรณ์คอม'],['สายชาร์จ',500,'อุปกรณ์คอม']]
+cols = ['Name','Price','Category']
+newdata = pd.DataFrame(data=products,columns=cols)
+newdata.set_index('Name',inplace=True)
+stock = stock.append(newdata)
+#print(stock)
+
+#Delete Row by Index (DataFrame )
+print(a)
+print(a.drop(0,axis=0))
+
+
