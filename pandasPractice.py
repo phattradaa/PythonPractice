@@ -138,8 +138,8 @@ stock.sort_values('Amount',ascending=True,inplace=True)
 #inplace แทนค่าทับ 
 
 #Add Column 
-stock["delivery"]=100
-stock["total"] = stock["Price"]+stock["delivery"]
+#stock["delivery"]=100
+#stock["total"] = stock["Price"]+stock["delivery"]
 #print(stock)
 
 #Change Column Name 
@@ -162,11 +162,32 @@ products = [['หูฟัง',1500,'อุปกรณ์คอม'],['สา�
 cols = ['Name','Price','Category']
 newdata = pd.DataFrame(data=products,columns=cols)
 newdata.set_index('Name',inplace=True)
-stock = stock.append(newdata)
+#stock = stock.append(newdata)
 #print(stock)
 
 #Delete Row by Index (DataFrame )
-print(a)
-print(a.drop(0,axis=0))
+#print(a)
+#print(a.drop(0,axis=0))
+
+#Delete Row by Keys 
+#print(stock)
+#row = "หูฟัง"
+#stock.drop(row,axis=0,inplace=True)
+#print(stock)
+
+#Sum of column and row 
+#print(stock.sum(axis=1))
+stock["total"] = stock["Price"] * stock["Amount"]
+#print(stock)
+#print(stock.sum())
+
+#Missing Value isnull and notnull
+employee = pd.read_excel("Employee.xlsx",index_col="Name")
+#print(employee.isnull())
+#print(employee.isnull().any())
+#print(employee.isnull().sum())
+#print(employee.notnull())
+#print(employee.notnull().any())
+#print(employee.notnull().sum())
 
 
