@@ -190,4 +190,25 @@ employee = pd.read_excel("Employee.xlsx",index_col="Name")
 #print(employee.notnull().any())
 #print(employee.notnull().sum())
 
+#How to manage missing data 
+# 1. replace with mean 
+select = 'Salary'
+employee[select].fillna(employee[select].mean())
+# 2. replace with random value
+select = 'Bonus'
+employee[select].fillna(0.1)
+# 3. replace with previous value 
+employee.fillna(method='pad') 
+# 4. replace with next value 
+employee.fillna(method='bfill')
+# 5. delete data 
+# 5.1 All 
+employee.dropna()
+# 5.2 row that have free value 
+employee.dropna(subset=['Job'])
+# 5.3 delete column 
+employee.dropna(axis="columns")
 
+#Delete Duplicate Value
+employee[employee.duplicated()]
+employee.drop_duplicates()
