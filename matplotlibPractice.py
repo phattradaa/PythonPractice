@@ -20,4 +20,4 @@ plt.title("Data Of Sale", {"size": 20, "color": "green"}, loc="center")
 
 #Legend Function 
 plt.legend(["product1","product2"],loc="upper right")
-plt.show()
+
